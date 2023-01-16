@@ -30,7 +30,7 @@
         <td class="inputs">
           <input name="username" type="text" id="username">
           <br>
-          <span id="username_err" class="err_msg" style="display: none">用户名不太受欢迎</span>
+          <span id="username_err" class="err_msg" >${register_msg}</span>
         </td>
 
       </tr>
@@ -40,7 +40,7 @@
         <td class="inputs">
           <input name="password" type="password" id="password">
           <br>
-          <span id="password_err" class="err_msg" style="display: none">密码格式有误</span>
+          <span id="password_err" class="err_msg" style="display: none" >密码格式有误</span>
         </td>
       </tr>
 
@@ -49,8 +49,10 @@
         <td>验证码</td>
         <td class="inputs">
           <input name="checkCode" type="text" id="checkCode">
-          <img src="images/a.jpg">
+          <img id="checkCodeImg" src="/brand-demo/checkCodeServlet">
           <a href="#" id="changeImg">看不清？</a>
+          <br>
+          <span id="checkCodeMsg" class="err_msg">${checkCodeMsg}</span>
         </td>
       </tr>
 
@@ -63,5 +65,15 @@
   </form>
 
 </div>
+<script>
+  document.getElementById("changeImg").onclick = function ()
+  {
+    document.getElementById("checkCodeImg").src = "/brand-demo/checkCodeServlet?" + new Date().getMilliseconds();
+  }
+  document.getElementById("checkCodeImg").onclick= function ()
+  {
+    document.getElementById("checkCodeImg").src = "/brand-demo/checkCodeServlet?" + new Date().getMilliseconds();
+  }
+</script>
 </body>
 </html>

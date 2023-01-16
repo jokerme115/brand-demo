@@ -27,23 +27,30 @@ public class UserService {
     }
 
 
-    public boolean register(User user)
+    //
+    public int register(User user)
     {
         //获取sqlSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         //获取mapper
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        String userName = user.getUsername();
+        User user1 = null;
 
-        User user1 = mapper.selectByUsername(user.getUsername());
-
-        if (user1 == null)
+        if (!userName.equals(""))
         {
-            //用户不存在,注册
-            mapper.add(user);
-            sqlSession.commit();
-        }
+            user1 = mapper.selectByUsername(userName);
+            if (user1 == null)
+            {
+                //用户不存在,注册
+                mapper.add(user);
+                sqlSession.commit();
+            }else return 2;//用户已存在
+        }else return 3;//用户名为空
+
         sqlSession.close();
-        return user1 == null;
+        //注册成功
+        return 1;
     }
 }
